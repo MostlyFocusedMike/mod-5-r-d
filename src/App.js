@@ -42,9 +42,18 @@ class App extends Component {
     })
   }
   jumpTo = (e) => {
-    let place = e.target.dataset.time
+    let place = parseInt(e.target.dataset.time, 10) // doesn't play nice with string
     this.state.video.seekTo(place, true) // time in seconds to go to, and whether you want to allow it to go into unbuffered territory
     this.setState({ time: place })
+  }
+
+  playPause = () => {
+    this.state.playState === 1 ?  this.state.video.pauseVideo() 
+      : this.state.video.playVideo()
+  }
+
+  play = () => {
+    this.state.video.playVideo()
   }
 
   render() {
@@ -56,7 +65,7 @@ class App extends Component {
         setVideo={this.setVideo}
       />
 
-      <NavButtons jumpTo={this.jumpTo}/>
+      <NavButtons jumpTo={this.jumpTo} playPause={this.playPause}  />
       <Notes
         time={this.state.time}
       />
