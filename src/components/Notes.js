@@ -1,40 +1,40 @@
 import React from "react" 
 
+ let dbData = {
+   notes: [{time: 3, type: "code", content: "i am a \ncode"}, 
+     {time: 5, type: "text", content: "i am text"}, 
+     {time: 7, type: "pic", content: "https://media.giphy.com/media/1wqYNiObsge7Jowizv/giphy.gif", alt: "gif"}, 
+     {time: 9, type: "code", content: "i am \nmore \n\tcode"}, 
+     {time: 12, type: "pic", content: "https://static.boredpanda.com/blog/wp-content/uploads/2018/04/5acb63d83493f__700-png.jpg", alt: "cat pic"}
+   ]
+ }
 class Notes extends React.Component {
 
-  handleProps = (e) => {
-    return <p>{this.props.time}</p>
-  }
-/*
- *  from the d
- *  would probably be {
- *  {
- *  [10,20,30]
- *  [{notes: "i am a note"}, {notes: "i am another note"}]
- *  }
- *
- *
- */
   handleClick = () => {
     this.props.jumpTo(10)
   }
 
-  showNote = () => {
-
-   let dbData = {
-     notes: [{time: 5, note: "i am a \nnote"}, {time: 10, note: "i am another note"}, {time: 15, note: "I am the final Note"}]
-   }
+  pickNote = () => {
    const {time} = this.props
    let obj = dbData.notes.find(note => time <= note.time)
-   return obj ?  obj.note :  dbData.notes[dbData.notes.length -1].note
+   return obj ? obj : dbData.notes[dbData.notes.length -1]
   }
+
+  displayNote = () => {
+    let note = this.pickNote() 
+    if (note.type === "code") {
+      return <pre>{note.content}</pre>
+    } else if (note.type === "text") {
+      return <p>{note.content}</p>
+    } else {
+      return <img src={note.content} alt={note.alt} />
+    }
+  }
+
   render() {
-    console.log(this.props);
     return (
       <div> 
-        <pre>{this.showNote()}</pre>
-        <br /> 
-        <button onClick={this.handleClick}>Scrub</button>
+        {this.displayNote()}
       </div>
     )
   }

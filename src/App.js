@@ -46,6 +46,9 @@ class App extends Component {
     this.setState({ time: place })
   }
 
+  handleClick = () => {
+    this.jumpTo(10)
+  }
   render() {
     return (
       <div>
@@ -54,10 +57,13 @@ class App extends Component {
         logTime={this.logTime} 
         setVideo={this.setVideo}
       />
+
+      <button onClick={this.handleClick}>Scrub</button>
+
       <Notes
         time={this.state.time}
-        jumpTo={this.jumpTo}
       />
+
       </div>
     );
   }
