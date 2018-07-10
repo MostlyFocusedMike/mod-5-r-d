@@ -6,11 +6,20 @@ class NavButtons extends React.Component {
    const {time} = this.props
    let places = Data.notes.map(note => note.time)
    let currentSpot = places.find(place => time <= place)
-   currentSpot = currentSpot || places[places.length - 1]
+   currentSpot = currentSpot === undefined ? places[places.length - 1] : currentSpot
    let currentIndex = places.indexOf(currentSpot) 
    return currentIndex === 0 ? 0 : places[currentIndex - 1]
-    
   }
+
+  next = () => {
+   const {time} = this.props
+   let places = Data.notes.map(note => note.time)
+   let currentSpot = places.find(place => time <= place)
+   currentSpot = currentSpot === undefined ? places[places.length - 1] : currentSpot
+   let currentIndex = places.indexOf(currentSpot)
+   return places[currentIndex + 1] || places[places.length - 1]
+  }
+
   render() {
     return (
       <div className="nav-buttons">
@@ -26,7 +35,7 @@ class NavButtons extends React.Component {
           ))
         }
         <button onClick={this.props.playPause}>Play/Pause</button>
-        <button onClick={this.props.next}>Next</button>
+        <button data-time={this.next()} onClick={this.props.jumpTo}>Next</button>
       </div>
     )
   }
