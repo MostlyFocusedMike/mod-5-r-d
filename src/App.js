@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Player from './components/Player';
 import Notes from './components/Notes';
+import NavButtons from './components/NavButtons';
 
 class App extends Component {
   state = {
@@ -40,15 +41,12 @@ class App extends Component {
       video: e.target
     })
   }
-  jumpTo = (place) => {
-    this.state.video.pauseVideo()
+  jumpTo = (e) => {
+    let place = e.target.dataset.time
     this.state.video.seekTo(place, true) // time in seconds to go to, and whether you want to allow it to go into unbuffered territory
     this.setState({ time: place })
   }
 
-  handleClick = () => {
-    this.jumpTo(10)
-  }
   render() {
     return (
       <div>
@@ -58,8 +56,7 @@ class App extends Component {
         setVideo={this.setVideo}
       />
 
-      <button onClick={this.handleClick}>Scrub</button>
-
+      <NavButtons jumpTo={this.jumpTo}/>
       <Notes
         time={this.state.time}
       />
