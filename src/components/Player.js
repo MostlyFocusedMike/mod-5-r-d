@@ -15,12 +15,14 @@ class Player extends React.Component {
     };
  
     return (
+      <div>
       <YouTube
         videoId="2g811Eo7K8U"
         opts={opts}
         onReady={this.props.setVideo}
         onStateChange={this.props.handlePlayState}
       />
+        </div>
       
     );
   }
@@ -28,3 +30,5 @@ class Player extends React.Component {
 }
 
 export default Player 
+      // <img src={`http://img.youtube.com/vi/2g811Eo7K8U/mqdefault.jpg`} />}
+
